@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_indent_indent,indent.indent,model_indent_indent,group_stock_indent_approver,1,1,1,1
+access_indent_product_lines,indent.product.lines,model_indent_product_lines,group_stock_indent_issuer,1,1,1,1
+access_indent_indent_user,indent.indent,model_indent_indent,stock.group_stock_user,1,1,1,0
+access_indent_indent_manager,indent.indent,model_indent_indent,stock.group_stock_manager,1,1,1,1
+access_indent_product_lines,indent.product.lines,model_indent_product_lines,stock.group_stock_user,1,1,1,1
+access_stock_picking_user,stock.picking,model_stock_picking,stock.group_stock_user,1,1,1,0
+access_stock_picking_manager,stock.picking,model_stock_picking,stock.group_stock_manager,1,1,1,1
+access_stock_move_user,stock.move,model_stock_move,stock.group_stock_user,1,1,1,0
+access_stock_move_manager,stock.move,model_stock_move,stock.group_stock_manager,1,1,1,1

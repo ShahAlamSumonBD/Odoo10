@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="confirmation_wizard_view_form" model="ir.ui.view">
+			<field name="name">confirmation.wizard.form</field>
+			<field name="model">confirmation.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Confirmation wizard Form">
+					<div class='col-md-8'>
+						Are you sure want to change type, Then selected product will be delete
+						?
+					</div>
+					<footer>
+						<button name="action_yes" type="object" string="Yes"
+							class="oe_highlight" />
+						<button string="No" special="cancel" class="oe_link" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="confirmation_wizard_action" model="ir.actions.act_window">
+			<field name="name">Confirmation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="src_model">indent.indent</field>
+			<field name="res_model">confirmation.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</openerp>

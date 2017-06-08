@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='view_stock_indent_indent_form' model='ir.ui.view'>
+			<field name="name">indent.indent.form</field>
+			<field name="model">indent.indent</field>
+			<field name="arch" type="xml">
+				<form string="Indents">
+					<header>
+                        <button name="indent_confirm" string="Confirm" states="draft"
+							class="oe_highlight" type="object" />
+						<button name="indent_cancel" string="Cancel" states="waiting_approval"
+							class="" type="object" groups="stock.group_stock_user" />
+						<button name="indent_inprogress" string="Approve" states="waiting_approval"
+							class="oe_highlight" type="object"  groups="stock_indent.group_stock_indent_approver" />
+						<button name="indent_reject" string="Reject" states="waiting_approval" type="object"
+							groups="stock_indent.group_stock_indent_approver" />
+						<button name="action_issue_products" string="Issue Product(s)"
+							states="inprogress" type="object" class="oe_highlight"
+							groups="stock_indent.group_stock_indent_issuer" />
+						<button name="action_type_change" type="object" string="Type Change"/>
+                                 <!--attrs="{'invisible': ['|',('product_type_flag', '=', False), ('state','in',['waiting_approval','inprogress','received','reject'])]}"/>-->
+						<button name="action_close" type="object" string="Close"
+                                 attrs="{'invisible': [('state','in',['draft','confirm','waiting_approval'])]}"/>
+						<field name="state" widget="statusbar"
+							statusbar_visible="draft,waiting_approval,inprogress,received"
+							statusbar_colors='{"reject":"red"}' />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="indentor_id" readonly="1" />
+								<field name="source_department_id" string="From Department" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+								<field name="type"/>
+								<field name="picking_type_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+							</group>
+							<group>
+								<field name="indent_date" />
+								<field name="required_date" />
+								<field name="approve_date" />
+                                <field name="amount_flag" invisible="1"></field>
+							</group>
+
+						</group>
+						<notebook>
+                            <page string="Products">
+                                <field name="product_lines" context="{'indent_type':type}" >
+                                    <tree string="Products" editable="bottom">
+										<field name="sequence" widget="handle" />
+										<!--<field name="indent_type_gen_flag" invisible="1" />-->
+										<field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+										 <!--domain="[('general_item', '=',indent_type_gen_flag)]"/>-->
+										 <!--, ('gen_bom_flag', '!=', False)]"/>-->
+										<field name="name" string="Remarks"/>
+										<field name="required_date"/>
+										<!--<field name="type"  invisible="1"/>-->
+										<field name="product_uom_qty" sum="Total Qty" />
+										<!--<field name="qty_available" invisible="1"/>-->
+										<field name="product_uom" string="UOM" groups="product.group_uom" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+										<field name="price_unit" sum="Total Price" string="Unit Price" />
+										<field name="price_subtotal" sum="Total Price" />
+									</tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+									<field name="amount_total" widget="monetary"
+										class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}" />
+								</group>
+								<div class="oe_clear">
+									<label for="description" />
+								</div>
+								<field name="description" class="oe_inline" placeholder="Additional note..." />
+                            </page>
+                            <page string="Others">
+								<group>
+									<group>
+										<field name="move_type" />
+										<field name="warehouse_id" />
+									</group>
+									<group>
+										<field name="manager_id" readonly="1" />
+										<field name="approver_id" readonly="1" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Indent Tree View -->
+		<record id='view_indent_indent_tree' model='ir.ui.view'>
+			<field name="name">indent.indent.tree</field>
+			<field name="model">indent.indent</field>
+			<field name="arch" type="xml">
+				<tree string="Indents"
+					colors="gray:state=='received';green:state=='waiting_approval';">
+					<field name="name" />
+					<field name="indentor_id" />
+					<field name="indent_date" />
+					<field name="required_date" />
+					<field name="approve_date" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- Indent Window Action -->
+		<record id='action_indent_indent' model='ir.actions.act_window'>
+			<field name="name">Indents</field>
+			<field name="res_model">indent.indent</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a new indent.
+				</p>
+			</field>
+		</record>
+	
+		<!-- My Indent Window Action -->
+		<record id='action_indent_my_indent' model='ir.actions.act_window'>
+			<field name="name">My Indents</field>
+			<field name="res_model">indent.indent</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_myindent':1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a my indent.
+				</p>
+			</field>
+		</record>
+		
+		
+
+		<!-- Indent Menu -->
+		<menuitem name="Indents" parent="stock.menu_stock_root" id="menu_indent_indent_main"
+			sequence="1" groups="stock.group_stock_user" />
+
+		<menuitem id="menu_reporting_indent" name="Indents"
+			parent="stock.menu_warehouse_report" sequence="10" />
+
+		<menuitem action="action_indent_indent" name="Indents"
+			parent="menu_indent_indent_main" id="menu_indent_indent" sequence="1"
+			groups="stock.group_stock_user" />
+			
+		<menuitem action="action_indent_my_indent" name="My Indents"
+			parent="menu_indent_indent_main" id="menu_indent_my_indent" sequence="2"
+			groups="stock.group_stock_user" />
+		
+		<!-- Document Authority Menu -->
+		<menuitem name="Indent Management" parent="stock.menu_stock_warehouse_mgmt"
+			id="menu_indent_configuration" sequence="41" />
+	</data>
+</openerp>
