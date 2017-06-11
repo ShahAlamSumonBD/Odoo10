@@ -15,6 +15,7 @@ class IndentProductLines(models.Model):
     name = fields.Char('Product Name', size=255, required=True)
     sequence = fields.Integer('Sequence')
     required_date = fields.Date('Required Date', default=fields.Date.today(), required=True)
+    delay = fields.Float('Lead Time', required=True,default=0.0)
 
     @api.onchange('product_id')
     def onchange_product_id(self):
