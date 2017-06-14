@@ -312,6 +312,7 @@ def model(method):
 
 
 def multi(method):
+    # type: (object) -> object
     """ Decorate a record-style method where ``self`` is a recordset. The method
         typically defines an operation on records. Such a method::
 
@@ -325,6 +326,7 @@ def multi(method):
             recs.method(args)
 
             model.method(cr, uid, ids, args, context=context)
+            :rtype: object
     """
     method._api = 'multi'
     return method

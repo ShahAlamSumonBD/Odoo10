@@ -4,3 +4,4 @@
 import inherited_product_template
 import indent_indent
 import indent_product_lines
+import stock_indent_operating_unit

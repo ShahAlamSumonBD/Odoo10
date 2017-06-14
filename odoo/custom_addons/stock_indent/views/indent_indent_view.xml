@@ -33,7 +33,7 @@
 								<field name="source_department_id" string="From Department" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
 								<field name="type"/>
 								<field name="picking_type_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
-								<field name="department_id"/>
+								<field name="department_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
 							</group>
 							<group>
 								<field name="indent_date" />

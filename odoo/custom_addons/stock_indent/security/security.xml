@@ -17,5 +17,6 @@
         <field name="category_id" ref="module_category_indent"/>
     </record>
 
+
 </data>
 </openerp>

@@ -71,10 +71,9 @@ class IndentIndent(models.Model):
 	department_id = fields.Many2one('stock.location', 'Department',
 									required=True,
 									track_visibility='onchange',
-									readonly=True, states={'draft': [('readonly', False)]},
-									default=_default_stock_location,
-									# domain=[('can_request', '=', True)]
-                                    )
+									readonly=True, states={'draft': [('readonly', False)]})
+									# default=_default_stock_location,
+									# domain=[('can_request', '=', True)])
 	company_id = fields.Many2one('res.users', 'Company', readonly=True,
 								 default=lambda self: self.env.user.company_id,
 								 states={'draft': [('readonly', False)]})
@@ -82,6 +81,7 @@ class IndentIndent(models.Model):
 									states={'draft': [('readonly', False)], 'waiting_approval': [('readonly', False)]})
 	description = fields.Text('Additional Information', readonly=True, states={'draft': [('readonly', False)]})
 	picking_id = fields.Many2one('stock.picking', 'Picking')
+	active = fields.Boolean('Active',default='True')
 
 	state = fields.Selection([('draft', 'Draft'),
 							  ('confirm', 'Confirm'),
@@ -257,7 +257,7 @@ class IndentIndent(models.Model):
 			'partner_id': indent.indentor_id.id or False,
 			#             'stock_issue':True
 			'location_id': location_id,
-			'location_dest_id': location_id,
+			'location_dest_id': indent.department_id.id,
 		}
 
 		if indent.company_id:
@@ -282,8 +282,7 @@ class IndentIndent(models.Model):
 			# 'product_uos': (line.product_uos and line.product_uos.id) \
 			# 			   or line.product_uom.id,
 			'location_id': location_id,
-			# 'location_dest_id': indent.department_id.id,
-			'location_dest_id': location_id,
+			'location_dest_id': indent.department_id.id,
 			'state': 'confirmed',
 			'price_unit': line.product_id.standard_price or 0.0
 		}
@@ -298,10 +297,22 @@ class IndentIndent(models.Model):
 		date_1 = datetime.datetime.strptime(start_date, "%Y-%m-%d")
 		date_planned = datetime.datetime.strftime(date_1 + timedelta(days), DEFAULT_SERVER_DATETIME_FORMAT)
 		return date_planned
+
+	@api.multi
+	def action_type_change(self, context=None):
+		return {
+			'name': ('Confirmation'),
+			'view_type': 'form',
+			'view_mode': 'form',
+			'src_model': 'indent.indent',
+			'res_model': 'confirmation.wizard',
+			'view_id': False,
+			'type': 'ir.actions.act_window',
+			'target': 'new',
+		}
+
 			# _defaults = {
-	# 	'requirement': '1',
 	# 	'item_for': 'store',
-	# 	'active': True,
 	# 	'approver_id': False,
 	#
 	# }

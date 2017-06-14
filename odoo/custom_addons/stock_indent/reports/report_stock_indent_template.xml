@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+        <template id="report_stock_indent_document">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <!--<t t-foreach="docs" t-as="o">-->
+
+                    <div class="page">
+                        <div class="row">
+                            <h3>Stock Indent</h3>
+                            <div class="col-xs-3">Operating Unit</div>
+                            <div class="col-xs-3"><span t-esc="operating_unit_name"/></div>
+                            <div class="col-xs-3">From Department</div>
+                            <div class="col-xs-3"><span t-esc="source_department_name"/></div>
+                            <!--<t t-foreach="docs" t-as="o">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-xs-3">From Department</div>-->
+                                    <!--<div class="col-xs-3"><span t-field="o.source_department_id"/></div>-->
+                                <!--</div>-->
+                            <!--</t>-->
+
+                        </div>
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Required Date</th>
+                                        <th>Quantity Required</th>
+                                        <th>Unit Price</th>
+                                        <th>Sub Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="docs" t-as="o">
+                                        <!--<t t-if="o['product_lines']">-->
+                                            <t t-foreach="o.product_lines" t-as="l">
+                                                <tr>
+                                                    <td><span t-esc="l.name"/></td>
+                                                    <td><span t-esc="l.required_date"/></td>
+                                                    <td><span t-esc="l.product_uom_qty"/></td>
+                                                    <td><span t-esc="l.price_unit"/></td>
+                                                    <td><span t-esc="l.price_subtotal"/></td>
+                                                </tr>
+                                            </t>
+                                        <!--</t>-->
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--</t>-->
+                </t>
+            </t>
+        </template>
+
+        <!--<template id="report_of_export">-->
+        <!--<t t-call="report.html_container">-->
+        <!--<t t-foreach="doc_ids" t-as="doc_id">-->
+        <!--<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'esq_export_register.report_export_commercial_invoice_document')"/>-->
+        <!--</t>-->
+        <!--</t>-->
+        <!--</template>-->
+    </data>
+</openerp>

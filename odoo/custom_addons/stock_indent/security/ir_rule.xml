@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="stock_indent_single_company" model="ir.rule">
+            <field name="name">stock_indent.single_company</field>
+            <field name="model_id" ref="model_indent_indent"/>
+            <field name="domain_force">['|',('company_id','child_of',[user.company_id.id]),('company_id','=',False)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="ir_rule_stock_indent_operating_units" model="ir.rule">
+            <field name="model_id" ref="model_indent_indent"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">stock_indent.operating_units_allowed</field>
+            <field name="global" eval="True"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <!--<record id="stock_indent_single_user" model="ir.rule">-->
+            <!--<field name="name">stock_indent.single_user</field>-->
+            <!--<field name="model_id" ref="model_indent_indent"/>-->
+            <!--<field name="domain_force">[('indentor_id','=',user.id)]</field>-->
+            <!--<field name="global" eval="True"/>-->
+        <!--</record>-->
+    </data>
+</openerp>

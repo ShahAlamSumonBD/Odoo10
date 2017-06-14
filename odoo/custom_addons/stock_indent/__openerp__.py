@@ -25,11 +25,14 @@
     'category': 'Warehouse Management',
     'data': [
              'security/security.xml',
+             'security/ir_rule.xml',
              'security/ir.model.access.csv',
              'views/inherited_product_template_views.xml',
              'views/indent_indent_sequence.xml',
              'views/indent_indent_view.xml',
              'wizard/confirmation_wizard_views.xml',
+             'wizard/indent_report_wizard_view.xml',
+             'reports/report_stock_indent_template.xml',
              ],
     'depends': ['hr','stock','account'],
     'description': '''

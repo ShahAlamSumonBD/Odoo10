@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+                id="custom_report_of_stock_indent"
+                model="stock.indent.report.wizard"
+                string="Stock Indent Report"
+                report_type="qweb-pdf"
+                name="stock_indent.report_stock_indent_document"
+                file="stock_indent.report_stock_indent_document"
+                />
+
+        <record id="stock_indent_report_form" model="ir.ui.view">
+            <field name="name">stock.indent.report.wizard.form</field>
+            <field name="model">stock.indent.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Stock Indent Report">
+                    <sheet>
+                        <group>
+                            <field name="operating_unit_id"/>
+                            <field name="source_department_id"/>
+                        </group>
+                        <footer>
+                            <button name ="process_report" string="Print" type="object" class="oe_highlight"  />
+                    		<button special="cancel" string="Cancel" />
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="stock_indent_report_tree">
+            <field name="name">stock.indent.report.wizard.tree</field>
+            <field name="model">stock.indent.report.wizard</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Indent Report">
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_view_stock_indent_report" model="ir.actions.act_window">
+            <field name="name">Stock Indent Reports</field>
+            <field name="res_model">stock.indent.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+                id="menu_stock_indent_report_main"
+                action="open_view_stock_indent_report"
+                parent="menu_indent_indent_main" name="Stock Indent Report" sequence="3"/>
+
+    </data>
+</openerp>
