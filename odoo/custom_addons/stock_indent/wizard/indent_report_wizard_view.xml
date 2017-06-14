@@ -16,10 +16,15 @@
             <field name="arch" type="xml">
                 <form string="Stock Indent Report">
                     <sheet>
-                        <group>
-                            <field name="operating_unit_id"/>
-                            <field name="source_department_id"/>
+                        <group colspan="1">
+                            <group>
+                                <field name="operating_unit_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                <field name="source_department_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                <field name="product_category_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                <field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                            </group>
                         </group>
+
                         <footer>
                             <button name ="process_report" string="Print" type="object" class="oe_highlight"  />
                     		<button special="cancel" string="Cancel" />

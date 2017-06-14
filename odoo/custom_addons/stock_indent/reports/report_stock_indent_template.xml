@@ -9,19 +9,22 @@
 
                     <div class="page">
                         <div class="row">
-                            <h3>Stock Indent</h3>
-                            <div class="col-xs-3">Operating Unit</div>
-                            <div class="col-xs-3"><span t-esc="operating_unit_name"/></div>
-                            <div class="col-xs-3">From Department</div>
-                            <div class="col-xs-3"><span t-esc="source_department_name"/></div>
-                            <!--<t t-foreach="docs" t-as="o">-->
-                                <!--<div class="row">-->
-                                    <!--<div class="col-xs-3">From Department</div>-->
-                                    <!--<div class="col-xs-3"><span t-field="o.source_department_id"/></div>-->
-                                <!--</div>-->
-                            <!--</t>-->
-
+                            <div class="col-xs-12" style="text-align:center;">
+                                <h2 ><strong >Stock Indent</strong></h2>
+                                <hr></hr>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-3">Operating Unit :</div>
+                            <div class="col-xs-3"><span t-esc="operating_unit_name"/></div>
+                        </div>
+                        <div class="row">
+                            <t t-if="source_department_name">
+                                <div class="col-xs-3">From Department :</div>
+                                <div class="col-xs-3"><span t-esc="source_department_name"/></div>
+                            </t>
+                        </div>
+                        <br></br>
                         <div>
                             <table class="table table-bordered">
                                 <thead>
@@ -35,17 +38,15 @@
                                 </thead>
                                 <tbody>
                                     <t t-foreach="docs" t-as="o">
-                                        <!--<t t-if="o['product_lines']">-->
-                                            <t t-foreach="o.product_lines" t-as="l">
-                                                <tr>
-                                                    <td><span t-esc="l.name"/></td>
-                                                    <td><span t-esc="l.required_date"/></td>
-                                                    <td><span t-esc="l.product_uom_qty"/></td>
-                                                    <td><span t-esc="l.price_unit"/></td>
-                                                    <td><span t-esc="l.price_subtotal"/></td>
-                                                </tr>
-                                            </t>
-                                        <!--</t>-->
+                                        <t t-foreach="o.product_lines" t-as="l">
+                                            <tr>
+                                                <td><span t-esc="l.name"/></td>
+                                                <td><span t-esc="l.required_date"/></td>
+                                                <td><span t-esc="l.product_uom_qty"/></td>
+                                                <td><span t-esc="l.price_unit"/></td>
+                                                <td><span t-esc="l.price_subtotal"/></td>
+                                            </tr>
+                                        </t>
                                     </t>
                                 </tbody>
                             </table>
@@ -55,13 +56,6 @@
                 </t>
             </t>
         </template>
-
-        <!--<template id="report_of_export">-->
-        <!--<t t-call="report.html_container">-->
-        <!--<t t-foreach="doc_ids" t-as="doc_id">-->
-        <!--<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'esq_export_register.report_export_commercial_invoice_document')"/>-->
-        <!--</t>-->
-        <!--</t>-->
-        <!--</template>-->
+        
     </data>
 </openerp>
