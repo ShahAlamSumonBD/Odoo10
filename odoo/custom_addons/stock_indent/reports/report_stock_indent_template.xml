@@ -24,6 +24,16 @@
                                 <div class="col-xs-3"><span t-esc="source_department_name"/></div>
                             </t>
                         </div>
+                        <div class="row">
+                            <t t-if="from_date">
+                                <div class="col-xs-3">From Date :</div>
+                                <div class="col-xs-3"><span t-esc="from_date"/></div>
+                            </t>
+                            <t t-if="to_date">
+                                <div class="col-xs-3">To Date :</div>
+                                <div class="col-xs-3"><span t-esc="to_date"/></div>
+                            </t>
+                        </div>
                         <br></br>
                         <div>
                             <table class="table table-bordered">
@@ -56,6 +66,6 @@
                 </t>
             </t>
         </template>
-        
+
     </data>
 </openerp>

@@ -8,7 +8,7 @@
                 report_type="qweb-pdf"
                 name="stock_indent.report_stock_indent_document"
                 file="stock_indent.report_stock_indent_document"
-                />
+        />
 
         <record id="stock_indent_report_form" model="ir.ui.view">
             <field name="name">stock.indent.report.wizard.form</field>
@@ -16,18 +16,23 @@
             <field name="arch" type="xml">
                 <form string="Stock Indent Report">
                     <sheet>
-                        <group colspan="1">
+                        <group>
+                            <field name="operating_unit_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                            <field name="source_department_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                            <field name="product_category_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                            <field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                        </group>
+                        <group colspan="2">
                             <group>
-                                <field name="operating_unit_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
-                                <field name="source_department_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
-                                <field name="product_category_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
-                                <field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit":1}'/>
+                                <field name="from_date"/>
+                            </group>
+                            <group>
+                                <field name="to_date"/>
                             </group>
                         </group>
-
                         <footer>
                             <button name ="process_report" string="Print" type="object" class="oe_highlight"  />
-                    		<button special="cancel" string="Cancel" />
+                            <button special="cancel" string="Cancel" />
                         </footer>
                     </sheet>
                 </form>

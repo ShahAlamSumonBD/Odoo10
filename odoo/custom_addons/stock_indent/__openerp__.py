@@ -34,7 +34,7 @@
              'wizard/indent_report_wizard_view.xml',
              'reports/report_stock_indent_template.xml',
              ],
-    'depends': ['hr','stock','account'],
+    'depends': ['hr','stock','account','operating_unit'],
     'description': '''
 ''',
     'installable': True,
