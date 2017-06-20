@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+        <template id="report_stock_indent_document">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <t t-foreach="docs" t-as="o">
+
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align:center;">
+                                <h2 ><strong>Purchase Requisition</strong></h2>
+                                <hr></hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">PR NO. :</div>
+                            <div class="col-xs-3"><span t-esc="o.name"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">The following materials is required for</div>
+                            <div class="col-xs-3"><p>.....................</p></div>
+                            <div class="col-xs-3">Department</div>
+                        </div>
+                        <br></br>
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>SL#</th>
+                                        <th>Particulars</th>
+                                        <th>Store Code</th>
+                                        <th>Present Requirement</th>
+                                        <!--<th>Unit Price</th>-->
+                                        <!--<th>Total Taka</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <t t-foreach="o.purchase_request_line" t-as="l">
+                                            <tr>
+                                                <td>sl</td>
+                                                <td><span t-esc="l.name"/></td>
+                                                <td><span t-esc="l.description"/></td>
+                                                <td><span t-esc="l.product_qty"/></td>
+
+                                            </tr>
+                                        </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

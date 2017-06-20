@@ -1,0 +1,1 @@
+import hr_daily_attendance_report

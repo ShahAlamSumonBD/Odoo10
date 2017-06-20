@@ -29,15 +29,15 @@ class stock_indent_report(orm.TransientModel):
 
         res_product_list = []
         for i in op_obj:
-            # print (i.product_lines)
             for j in i.product_lines:
-                # print (j.product_id.id)
                 res_product_list.append(j.product_id.id)
-        return {'domain': {'source_department_id': [('id', 'in', res_source_department_list)]}} and {'domain': {'product_id': [('id', 'in', res_product_list)]}}
+
+        return {'domain': {'source_department_id': [('id', 'in', res_source_department_list)]}}
+                # {'domain': {'product_id': [('id', 'in', res_product_list)]}}
 
     @api.onchange('source_department_id')
     def onchange_source_department_id(self):
-        dep_obj=self.env['indent.indent'].search([('source_department_id','=',self.source_department_id.id)])
+        dep_obj=self.env['indent.indent'].search([('source_department_id','=',self.source_department_id.id),('operating_unit_id','=',self.operating_unit_id.id)])
 
         res_product_list=[]
         for i in dep_obj:
@@ -60,5 +60,6 @@ class stock_indent_report(orm.TransientModel):
         data['from_date'] = self.from_date
         data['to_date'] = self.to_date
 
-        data['product_id'] = self.product_id.id
+        data['product_id'] = self.product_id.id or False
+
         return self.env['report'].get_action(self, 'stock_indent.report_stock_indent_document', data=data)

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report.-->
+<openerp>
+    <data>
+        <template id="report_daily_att_doc">
+            <t t-call="report.html_container">
+                <!--<t t-foreach="docs" t-as="o">-->
+                    <t t-name="report.external_layout">
+                        <div class="page">
+                            <div class="row">
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <h2 ><strong >Daily Attendance</strong></h2>
+                                    <hr></hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3"><strong>Report Date</strong></div>
+                                <div class="col-xs-3"><strong>: <span t-esc="required_date"/></strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3"><strong>Total Present Employee</strong></div>
+                                <div class="col-xs-3"><strong>: <span t-esc="total_present_employee"/></strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3"><strong>Total Absent Employee</strong></div>
+                                <div class="col-xs-3"><strong>: <span t-esc="total_absent_employee"/></strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3"><strong>Total Late Employee</strong></div>
+                                <div class="col-xs-3"><strong>: <span t-esc="total_late_employee"/></strong></div>
+                            </div>
+                            <br></br>
+                            <t t-if="total_absent_employee">
+                                <div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="text-align:center;">
+                                        <h4><strong>Absent Employee List</strong></h4>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="absent_list" t-as="l">
+                                            <tr>
+                                                <td><span t-esc="l[0]"/></td>
+                                                <td><span t-esc="l[1]"/></td>
+                                                <td><span t-esc="l[2]"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </t>
+                            <t t-if="total_late_employee">
+                                <div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="text-align:center;">
+                                        <h4><strong >Late Employee List</strong></h4>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Designation</th>
+                                            <th>Check In Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="late_list" t-as="l">
+                                            <tr>
+                                                <td><span t-esc="l[0]"/></td>
+                                                <td><span t-esc="l[1]"/></td>
+                                                <td><span t-esc="l[2]"/></td>
+                                                <td><span t-esc="l[3]"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </t>
+
+                        </div>
+                        </t>
+                    <!--</t>-->
+                </t>
+        </template>
+    </data>
+</openerp>
