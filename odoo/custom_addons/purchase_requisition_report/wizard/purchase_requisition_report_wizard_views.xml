@@ -10,6 +10,10 @@
                 file="purchase_requisition_report.report_purchase_requisition_document"
         />
 
+        <record id="custom_report_of_purchase_requisition" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="purchase_requisition_report.paperformat_purchase_requisition_report"/>
+        </record>
+
         <record id="purchase_requisition_report_form" model="ir.ui.view">
             <field name="name">purchase.request.form</field>
             <field name="model">purchase.request</field>
@@ -34,10 +38,11 @@
         </record>
 
 
-        <menuitem
-                id="menu_purchase_requisition_report_main"
-                action="open_view_purchase_requisition_report"
-                parent="menu_purchase_request" name="Purchase Request Report" sequence="21"/>
+        <!--<menuitem-->
+                <!--id="menu_purchase_requisition_report_main"-->
+                <!--action="open_view_purchase_requisition_report"-->
+                <!--name="Purchase Request Report"-->
+                <!--sequence="21"/>-->
 
     </data>
 </openerp>

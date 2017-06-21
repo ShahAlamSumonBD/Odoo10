@@ -10,8 +10,8 @@
         "product"
     ],
     'data': [
-        'report/purchase_requisition_template_report.xml',
-        'report/report_paperformat.xml'
+        'report/purchase_requisition_report_template.xml',
+        'report/report_paperformat.xml',
         'wizard/purchase_requisition_report_wizard_views.xml',
     ],
 

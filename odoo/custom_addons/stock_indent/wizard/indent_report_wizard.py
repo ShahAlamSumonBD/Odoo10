@@ -1,15 +1,16 @@
 from odoo.osv import osv, orm
-from odoo import api,fields
+from odoo import api, fields
+
 
 class stock_indent_report(orm.TransientModel):
-    _name='stock.indent.report.wizard'
+    _name = 'stock.indent.report.wizard'
 
     # required_date = fields.Date('Required Date')
 
-    operating_unit_id = fields.Many2one('operating.unit','Select Operating Unit',
+    operating_unit_id = fields.Many2one('operating.unit', 'Select Operating Unit',
                                         required='True',
-                                        default = lambda self:self.env['res.users'].
-                                            operating_unit_default_get(self._uid)
+                                        default=lambda self: self.env['res.users'].
+                                        operating_unit_default_get(self._uid)
                                         )
     source_department_id = fields.Many2one('stock.location', 'Select Department Location')
 
@@ -18,33 +19,42 @@ class stock_indent_report(orm.TransientModel):
     from_date = fields.Date(string='From Date')
     to_date = fields.Date(string='To Date')
 
-
-
     @api.onchange('operating_unit_id')
     def onchange_operating_unit_id(self):
-        op_obj=self.env['indent.indent'].search([('operating_unit_id','=',self.operating_unit_id.id)])
-        res_source_department_list=[]
+        op_obj = self.env['indent.indent'].search([('operating_unit_id', '=', self.operating_unit_id.id)])
+        res_source_department_list = []
         for i in op_obj:
             res_source_department_list.append(i.source_department_id.id)
 
-        res_product_list = []
-        for i in op_obj:
-            for j in i.product_lines:
-                res_product_list.append(j.product_id.id)
-
         return {'domain': {'source_department_id': [('id', 'in', res_source_department_list)]}}
-                # {'domain': {'product_id': [('id', 'in', res_product_list)]}}
+
+        # res_product_list = []
+        # for i in op_obj:
+        #     for j in i.product_lines:
+        #         res_product_list.append(j.product_id.id)
+
+        # {'domain': {'product_id': [('id', 'in', res_product_list)]}}
 
     @api.onchange('source_department_id')
     def onchange_source_department_id(self):
-        dep_obj=self.env['indent.indent'].search([('source_department_id','=',self.source_department_id.id),('operating_unit_id','=',self.operating_unit_id.id)])
+        dep_obj = self.env['indent.indent'].search([('source_department_id', '=', self.source_department_id.id),
+                                                    ('operating_unit_id', '=', self.operating_unit_id.id)])
 
-        res_product_list=[]
+        res_product_list = []
         for i in dep_obj:
             for j in i.product_lines:
                 res_product_list.append(j.product_id.id)
         return {'domain': {'product_id': [('id', 'in', res_product_list)]}}
 
+    @api.onchange('product_category_id')
+    def onchange_product_category_id(self):
+        pro_obj = self.env['product.template'].search([('categ_id', '=', self.product_category_id.id)])
+
+        res_product_list = []
+        for i in pro_obj:
+            res_product_list.append(i.id)
+        print(res_product_list)
+        return {'domain': {'product_id': [('id', 'in', res_product_list)]}}
 
     @api.multi
     def process_report(self):
@@ -52,9 +62,7 @@ class stock_indent_report(orm.TransientModel):
         # data['required_date'] = self.required_date
         data['operating_unit_id'] = self.operating_unit_id.id
         data['operating_unit_name'] = self.operating_unit_id.name
-
-        data['source_department_id'] = self.source_department_id.id
-
+        data['source_department_id'] = self.source_department_id.id or False
         data['source_department_name'] = self.source_department_id.name
 
         data['from_date'] = self.from_date
