@@ -1,0 +1,106 @@
+<odoo>
+    <record model="ir.ui.view" id="view_attendance_dashboard_kanban">
+        <field name="name">attendance.dashboard.kanban</field>
+        <field name="model">attendance.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_stock_kanban" create="0" >
+                <!--<field name="name"/>default_group_by="operating_unit_id"-->
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} ">
+                            <div class="o_project_kanban_manage">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <field name="operating_unit_id"/>
+                                        </div>
+                                        <!--<div class="o_secondary"><field class="o_secondary" name="operating_unit_id"/></div>-->
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#">More <i class="fa fa-caret-down"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content o_visible" >
+                                <div class="row">
+                                    <div class="col-xs-6 o_kanban_primary_left" >
+                                        <div>
+                                            <center>
+                                                <button class="btn btn-primary" type="action" name="dashboard_sales_action_id" >Absent</button>
+                                                <button class="btn btn-primary" type="action" name="dashboard_sales_order_action_id" >Late</button>
+                                            </center>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 o_kanban_primary_right">
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <a>Present</a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="present_count"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <a>Late</a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="late_count"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <a>Absent</a>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <field name="absent_count"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane o_invisible">
+                                <!--<div class="col-xs-6 o_kanban_card_manage_section o_kanban_manage_view">-->
+                                    <!--<div class="o_kanban_card_manage_title">-->
+                                        <!--<span>View</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                    <div class="col-xs-8">
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <a type="edit">Settings</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+
+            </kanban>
+        </field>
+    </record>
+
+    <record id="custom_sales_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">attendance.dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="context">{}</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="help" type="html">
+            <p>
+                This is the dashboard.
+            </p>
+        </field>
+    </record>
+
+    <menuitem  id="employees_dashboard_menu"
+               parent="hr_attendance.menu_hr_attendance_root"
+               sequence="0"
+               name="Dashboard"
+               action="custom_sales_dashboard_action"/>
+</odoo>

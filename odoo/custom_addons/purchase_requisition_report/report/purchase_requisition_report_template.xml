@@ -15,14 +15,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-3">PR NO. :</div>
+                                <div class="col-xs-2">PR NO. :</div>
                                 <div class="col-xs-3"><span t-esc="o.name"/></div>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-6">The following materials is required for</div>
-                                <div class="col-xs-3"><p>.....................</p></div>
-                                <div class="col-xs-3">Department</div>
-                            </div>
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-6">The following materials is required for</div>-->
+                                <!--<div class="col-xs-3"><p>.....................</p></div>-->
+                                <!--<div class="col-xs-3">Department</div>-->
+                            <!--</div>-->
                             <br></br>
                             <div>
                                 <table class="table table-bordered">

@@ -50,10 +50,8 @@ class stock_indent_report(orm.TransientModel):
     def onchange_product_category_id(self):
         pro_obj = self.env['product.template'].search([('categ_id', '=', self.product_category_id.id)])
 
-        res_product_list = []
-        for i in pro_obj:
-            res_product_list.append(i.id)
-        print(res_product_list)
+
+        res_product_list = pro_obj.ids
         return {'domain': {'product_id': [('id', 'in', res_product_list)]}}
 
     @api.multi
